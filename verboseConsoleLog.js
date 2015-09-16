@@ -6,31 +6,57 @@ var fs = require('fs');
 var SourceMapConsumer = require('source-map').SourceMapConsumer;
 
 logger = {
-    log: function() {this.doAction({loggerArguments:arguments, action: "log"});},
-    error: function() {this.doAction({loggerArguments:arguments, action: "error"});},
-    warn: function() {this.doAction({loggerArguments:arguments, action: "warn"});},
-    debug: function() {this.doAction({loggerArguments:arguments, action: "debug"});},
+    // For testing purposes - messages will be returned instead of writing to io
+    testing: false,
+
+    log: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "log"});},
+    error: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "error"});},
+    warn: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "warn"});},
+    debug: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "debug"});},
+    test_log: function() {this.testing = true; return this.doTestAction({loggerArguments:arguments, action: "log"});},
+
+    doTestAction: function(options) {
+        var self = this;
+        return new Promise(function(resolve, reject) {
+            options.resolve = resolve;
+            options.reject = reject;
+            self.doAction(options);
+        });
+    },
 
     doAction: function(options) {
         var self = this;
+        var resolve = options.resolve;
+        var reject = options.reject;
 
         try {
             var originalArgumentsArr = Array.prototype.slice.call(options.loggerArguments);
             var updatedArgumentsArr = originalArgumentsArr;
         } catch(err) {
             console.error(err);
+            if(self.testing) {
+                reject(err);
+            }
             return;
         }
 
-        // Array of arguments with first argument as CallSite. For example if originalArgumentsArr = ["foo", "bar"]
-        // then updatedArgumentsArr = ["/source/js/my_file.js:12:8", "foo", "bar"]
-        //var updatedArgumentsArr = this.addCallSiteInfoToArguments(originalArgumentsArr);
-
+        /**
+         * @param argumentsArr - Array of arguments with first argument as CallSite.
+         * For example if originalArgumentsArr = ["foo", "bar"]
+         * then argumentsArr = ["/source/js/my_file.js:12:8", "foo", "bar"]
+         */
         function log(argumentsArr) {
             try {
-                console[options.action].apply(self, argumentsArr);
+                if(true === self.testing) {
+                    resolve(argumentsArr);
+                } else {
+                    console[options.action].apply(self, argumentsArr);
+                }
             } catch(err) {
                 console.error(err);
+                if(self.testing) {
+                    reject(err);
+                }
                 return;
             }
         }
@@ -50,6 +76,9 @@ logger = {
                         fs.readFile(stack[i].getFileName()+".map", function (err, rawSourceMap) {
                             if (err) {
                                 console.error(err);
+                                if(self.testing) {
+                                    reject(err);
+                                }
                                 return;
                             }
 
@@ -64,6 +93,9 @@ logger = {
                                 log(updatedArgumentsArr);
                             } catch(err) {
                                 console.error(err);
+                                if(self.testing) {
+                                    reject(err);
+                                }
                                 return;
                             }
                         });
@@ -82,7 +114,7 @@ logger = {
             !fileName
             || (fileName && fileName.match(/v8-debug/))
             || (fileName && fileName.match(/ConsoleAgent/))
-            || (fileName && fileName.match(/verboseConsoleLog/))
+            || (fileName && fileName.match(/verboseConsoleLog\.js/))
         ) {
             return false;
         }
