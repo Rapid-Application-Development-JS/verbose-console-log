@@ -1,18 +1,14 @@
 var gulp = require('gulp');
-var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var clean = require('gulp-clean');
-//var removeUseStrict = require("gulp-remove-use-strict");
-var replace = require("gulp-replace");
+var babel = require("gulp-babel");
 
-
-gulp.task('build', ['copy-src-to-dist'], function () {
-    return gulp.src('test/polygon/test_0_1_2.js')
+gulp.task('prepare-test-dir', function () {
+    return gulp.src('./test/polygon/test_0_1_2.js')
         .pipe(sourcemaps.init())
+        // we use babel just because it add "use strict" at file beginning and thus we force *.map file to add mappings
         .pipe(babel())
         .pipe(sourcemaps.write('.', {addComment: true}))
-        .pipe(gulp.dest('test/polygon'));
+        .pipe(gulp.dest('./test/polygon/builded'));
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', ['prepare-test-dir']);

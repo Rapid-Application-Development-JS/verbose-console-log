@@ -29,10 +29,11 @@ log, error, warn, debug
 
 ## Dev, testing
 
-For testing, you must install mocha and run it
+For testing, you must install mocha and run gulp and mocha
 
 ```
 cd verbose-console-log
 npm i -g mocha
+gulp
 mocha
 ```

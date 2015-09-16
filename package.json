@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo 'Please, run \"mocha\" manually. You can install it via \"npm i -g mocha\"'"
+    "test": "echo 'Please, run gulp and then \"mocha\" manually. You can install it via \"npm i -g mocha\"'"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,10 @@
   },
   "homepage": "https://github.com/bondvt04/verbose-console-log#readme",
   "devDependencies": {
-    "chai": "^3.2.0"
+    "chai": "^3.2.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-sourcemaps": "^1.5.2"
   },
   "dependencies": {
     "fs": "0.0.2",

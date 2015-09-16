@@ -1,4 +1,4 @@
-var logger = require("../../verboseConsoleLog.js");
+var logger = require("../../../verboseConsoleLog.js");
 
 module.exports = {
     doLoggingStuff: function() {
