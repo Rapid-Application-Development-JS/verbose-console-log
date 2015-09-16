@@ -1,0 +1,41 @@
+{
+  "name": "verbose-console-log",
+  "version": "0.0.1",
+  "description": "Standard node.js console.log not shows line numbers, verbose-console-log do",
+  "main": "verboseConsoleLog.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo 'Please, run \"mocha\" manually. You can install it via \"npm i -g mocha\"'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bondvt04/verbose-console-log.git"
+  },
+  "keywords": [
+    "node",
+    "console",
+    "console.log",
+    "source",
+    "map",
+    "source-map",
+    "line",
+    "number",
+    "line",
+    "lines"
+  ],
+  "author": "Anatoliy Bondar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bondvt04/verbose-console-log/issues"
+  },
+  "homepage": "https://github.com/bondvt04/verbose-console-log#readme",
+  "devDependencies": {
+    "chai": "^3.2.0"
+  },
+  "dependencies": {
+    "fs": "0.0.2",
+    "source-map": "^0.5.0"
+  }
+}
