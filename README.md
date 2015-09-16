@@ -26,3 +26,13 @@ try {
 ### Allowed methods:
 
 log, error, warn, debug
+
+## Dev, testing
+
+For testing, you must install mocha and run it
+
+```
+cd verbose-console-log
+npm i -g mocha
+mocha
+```
