@@ -14,7 +14,7 @@ You can use this with source maps, if there is appropriate *.map file next to yo
 ```
 var logger = require("verbose-console-log");
 
-console.log("foo", "bar");
+logger.log("foo", "bar");
 
 try {
     something.wrong();
