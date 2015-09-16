@@ -1,4 +1,5 @@
 # verbose-console-log
+
 Standard node.js console.log not shows line numbers, verbose-console-log do.
 
 You can use this with source maps, if there is appropriate *.map file next to your file, for example:
@@ -9,7 +10,11 @@ You can use this with source maps, if there is appropriate *.map file next to yo
  | index.js.map
 ```
 
-##Examples
+### Allowed methods:
+
+log, error, warn, debug
+
+## Examples
 
 ```
 var logger = require("verbose-console-log");
@@ -23,9 +28,7 @@ try {
 }
 ```
 
-### Allowed methods:
 
-log, error, warn, debug
 
 ## Dev, testing
 
