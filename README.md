@@ -28,7 +28,12 @@ try {
 }
 ```
 
+Output:
 
+```
+~/src/index.js:3:8 foo bar
+~/src/index.js:8:12 asdf qwer
+```
 
 ## Dev, testing
 
