@@ -11,7 +11,7 @@ npm install verbose-console-log --save
 ## Usage
 
 ```javascript
-var logger = require("./verboseConsoleLog.js");
+var logger = require("verbose-console-log");
 
 logger.log("foo", "bar");
 logger.warn("baz", "bat");
