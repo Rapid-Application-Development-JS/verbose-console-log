@@ -1,6 +1,6 @@
 {
   "name": "verbose-console-log",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Standard node.js console.log not shows line numbers, verbose-console-log do",
   "main": "verboseConsoleLog.js",
   "directories": {
