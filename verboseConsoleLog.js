@@ -12,7 +12,6 @@ logger = {
     log: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "log"});},
     error: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "error"});},
     warn: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "warn"});},
-    debug: function() {this.testing = false; this.doAction({loggerArguments:arguments, action: "debug"});},
     test_log: function() {this.testing = true; return this.doTestAction({loggerArguments:arguments, action: "log"});},
 
     doTestAction: function(options) {

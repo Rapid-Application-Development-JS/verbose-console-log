@@ -7,11 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo 'Please, run gulp and then \"mocha\" manually. You can install it via \"npm i -g mocha\"'"
+    "test": "echo 'Please, run \"gulp\" and then \"mocha\" manually. You can install it via \"npm i -g gulp mocha\"'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bondvt04/verbose-console-log.git"
+    "url": "git+https://github.com/Rapid-Application-Development-JS/verbose-console-log.git"
   },
   "keywords": [
     "node",
@@ -28,9 +28,9 @@
   "author": "Anatoliy Bondar",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bondvt04/verbose-console-log/issues"
+    "url": "https://github.com/Rapid-Application-Development-JS/verbose-console-log/issues"
   },
-  "homepage": "https://github.com/bondvt04/verbose-console-log#readme",
+  "homepage": "https://github.com/Rapid-Application-Development-JS/verbose-console-log#readme",
   "devDependencies": {
     "chai": "^3.2.0",
     "gulp": "^3.9.0",
