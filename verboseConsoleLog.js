@@ -65,41 +65,31 @@ logger = {
         for(var i in stack) {
             if(this._isValidFileName(stack[i].getFileName())) {
                 // is *.map (source map) file exists
-                fs.stat(stack[i].getFileName()+'.map', function(err, statObject) {
-                    if(err) {
-                        // *.map not exists, just do "console.log" stuff
-                        updatedArgumentsArr.unshift(stack[i].getFileName()+":"+stack[i].getLineNumber()+":"+stack[i].getColumnNumber());
-                        log(updatedArgumentsArr);
-                    } else {
-                        // there is *.map file, try to retrieve original "fileName" and "lineNumber"
-                        fs.readFile(stack[i].getFileName()+".map", function (err, rawSourceMap) {
-                            if (err) {
-                                console.error(err);
-                                if(self.testing) {
-                                    reject(err);
-                                }
-                                return;
-                            }
+                try {
+                    var rawSourceMap = fs.readFileSync(stack[i].getFileName()+'.map');
 
-                            try {
-                                var smc = new SourceMapConsumer(rawSourceMap.toString('utf8', 0, rawSourceMap.length));
-                                var originalPosition = smc.originalPositionFor({
-                                    line: stack[i].getLineNumber(),
-                                    column: stack[i].getColumnNumber()
-                                });
-
-                                updatedArgumentsArr.unshift(originalPosition.source+":"+originalPosition.line+":"+originalPosition.column);
-                                log(updatedArgumentsArr);
-                            } catch(err) {
-                                console.error(err);
-                                if(self.testing) {
-                                    reject(err);
-                                }
-                                return;
-                            }
+                    // If no error, there is *.map file, try to retrieve original "fileName" and "lineNumber"
+                    try {
+                        var smc = new SourceMapConsumer(rawSourceMap.toString('utf8', 0, rawSourceMap.length));
+                        var originalPosition = smc.originalPositionFor({
+                            line: stack[i].getLineNumber(),
+                            column: stack[i].getColumnNumber()
                         });
+
+                        updatedArgumentsArr.unshift(originalPosition.source+":"+originalPosition.line+":"+originalPosition.column);
+                        log(updatedArgumentsArr);
+                    } catch(err) {
+                        console.error(err);
+                        if(self.testing) {
+                            reject(err);
+                        }
+                        return;
                     }
-                });
+                } catch(e) {
+                    // *.map not exists, just do "console.log" stuff
+                    updatedArgumentsArr.unshift(stack[i].getFileName()+":"+stack[i].getLineNumber()+":"+stack[i].getColumnNumber());
+                    log(updatedArgumentsArr);
+                }
                 return;
             }
         }
